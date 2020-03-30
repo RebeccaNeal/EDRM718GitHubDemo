@@ -1,0 +1,47 @@
+---
+title: "Analysis of hsb2 data"
+output:
+  html_document:
+    df_print: paged
+---
+
+This is an analysis of hsb2 data demographic and test scores of seniors in 
+high school randomly selected.
+
+```{r include=FALSE}
+library(here)
+```
+
+
+### The relationship of SES to math performance
+
+```{r include=FALSE}
+hsb2 <- read.csv(here("Data", "hsb2.csv"))
+```
+
+Here are side-by-side boxplots of math scores by SES levels
+
+```{r echo=FALSE}
+hsb2$ses <- factor(hsb2$ses,
+                   levels = 1:3,
+                   labels = c("low", "middle", "high"),
+                   ordered = TRUE)
+
+boxplot(hsb2$math ~ hsb2$ses,
+        xlab = "SES Category",
+        ylab = "Math Test Score",
+        main = "Math Test Scores by SES Category")
+```
+
+Here are the five-number summaries, mean, and standard deviations.
+
+```{r echo=FALSE}
+tapply(hsb2$math, hsb2$ses, fivenum)
+tapply(hsb2$math, hsb2$ses, mean)
+tapply(hsb2$math, hsb2$ses, sd)
+```
+
+
+
+
+
